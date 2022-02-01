@@ -2,20 +2,20 @@
 function asdf_prompt_info() {
   # If asdf isn't present nothing to do
   (( ${+commands[asdf]} )) || return 0
-  local currenttools=`asdf current`
+  local currenttools=$(asdf current)
   # Decide how we filter what is shown
   if [[ $ZSH_THEME_ASDF_PROMPT_FILTER != "ALL" ]]; then
-    currenttools=`echo $currenttools | grep -v ' system ' -`
+    currenttools=$(echo $currenttools | grep -v ' system ' -)
   fi
   if [[ -z "${ZSH_THEME_ASDF_PROMPT_FILTER// }" \
       || $ZSH_THEME_ASDF_PROMPT_FILTER == "COMPACT" ]]; then
-    currenttools=`echo $currenttools | grep -v "$HOME/.tool-versions" -`
+    currenttools=$(echo $currenttools | grep -v "$HOME/.tool-versions" -)
   fi
 
   # Decide if anything is left to process and return if not.
   [[ -z "${currenttools// }" ]] && return
 
-  local toolslist=`echo $currenttools | awk '{ print $1 }'`
+  local toolslist=$(echo $currenttools | awk '{ print $1 }')
   local versionslist
   # Decide if we do semi-major version (default) or full version info
   if [[ $ZSH_THEME_ASDF_PROMPT_VERSION_DETAIL == "PATCH" ]]; then
