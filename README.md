@@ -26,6 +26,9 @@ plugins=( [plugins...] zsh-asdf-prompt)
 Add the prompt info in your theme with `$(asdf_prompt_info)`. E.g.
 ```zsh
 PROMPT='%n@%m $(asdf_prompt_info)${(s:/:)PWD/#$HOME/~}%(!.#.>) '
+ZSH_THEME_ASDF_PROMPT_PREFIX="%{$fg_bold[magenta]%}{"
+ZSH_THEME_ASDF_PROMPT_POSTFIX="}%{$reset_color%} "
+ZSH_THEME_ASDF_PROMPT_VERSION_RESOLUTION="COMPACT"
 ```
 
 ## Environment variables in use
@@ -41,8 +44,8 @@ PROMPT='%n@%m $(asdf_prompt_info)${(s:/:)PWD/#$HOME/~}%(!.#.>) '
     - `PATCH`: Include patch version. Like "python: 3.10.1, nodejs: 17.4.0"
 - `ZSH_THEME_ASDF_PROMPT_VERSION_RESOLUTION`: Show how version was resolved. `COMPACT` or `NONE`. Default is `NONE`
     - `NONE`: Omit version resolution info
-    - `COMPACT`: Show how version was resolved by `asdf`
-        - "$" is from environment variables
+    - `COMPACT`: Show how `asdf`resolved versions
+        - "$" is from `ASDF_<TOOLNAME>_VERSION` environment variables
         - "~" from `.tool-versions` in home dir
         - "." from `.tool-versions` in current dir
-        - "/" from `.tool-versions` in parent dir
+        - "/" from `.tool-versions` in other parent dir
