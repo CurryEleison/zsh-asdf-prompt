@@ -49,7 +49,7 @@ function asdf_prompt_info() {
   local asdfsummary=$(echo $reassembled \
     | awk '{ print $1 ": " $2 $3 }' - \
     | head -c -1 - \
-    | sed ':a;N;$!ba;s/\n/, /' -)
+    | sed -z 's/\n/, /g' -)
 
   echo "${ZSH_THEME_ASDF_PROMPT_PREFIX-\{}"\
 "$asdfsummary${ZSH_THEME_ASDF_PROMPT_POSTFIX-\}}"
