@@ -3,14 +3,14 @@ function asdf_prompt_info() {
   # If asdf isn't present nothing to do
   (( ${+commands[asdf]} )) || return 0
   local currenttools=$(asdf current)
-  local toolversions_filename=${ASDF_DEFAULT_TOOL_VERSIONS_FILENAME-.tool-versions}
+  local toolvers_fname=${ASDF_DEFAULT_TOOL_VERSIONS_FILENAME-.tool-versions}
   # Decide how we filter what is shown
   if [[ $ZSH_THEME_ASDF_PROMPT_FILTER != "ALL" ]]; then
     currenttools=$(echo $currenttools | grep -v ' system ' -)
   fi
   if [[ -z "${ZSH_THEME_ASDF_PROMPT_FILTER// }" \
       || $ZSH_THEME_ASDF_PROMPT_FILTER == "COMPACT" ]]; then
-    currenttools=$(echo $currenttools | grep -v "$HOME/$toolversions_filename" -)
+    currenttools=$(echo $currenttools | grep -v "$HOME/$toolvers_fname" -)
   fi
 
   # Decide if anything is left to process and return if not.
@@ -37,8 +37,8 @@ function asdf_prompt_info() {
       | awk '{ $1=$2=""; print $0 }' \
       | sed 's/^ *//g' \
       | sed -E 's#ASDF_.*VERSION#\$#' \
-      | sed -E "s#$HOME\/*$toolversions_filename#\~#" \
-      | sed -E "s#$PWD\/*$toolversions_filename#\.#" \
+      | sed -E "s#$HOME\/*($toolvers_fname|\.[^\/]+)\$#\~#" \
+      | sed -E "s#$PWD\/*($toolvers_fname|\.[^\/]+)\$#\.#" \
       | sed -E "s#($HOME\/.+)#\/#" )
   else
     originslist=$(echo $currenttools | awk '{ print ""}' -)
