@@ -32,7 +32,9 @@ function asdf_prompt_info() {
   # Decide if we want to print out origins or not (default)
   local originslist
   if [[ $ZSH_THEME_ASDF_PROMPT_VERSION_RESOLUTION == "COMPACT" ]]; then
-    originslist=$(echo $currenttools | awk '{ print $3 }' \
+    originslist=$(echo $currenttools \
+      | awk '{ $1=$2=""; print $0 }' \
+      | sed 's/^ *//g' \
       | sed -E 's#ASDF_.*VERSION#\$#' \
       | sed -E "s#$HOME\/*\.tool-versions#\~#" \
       | sed -E "s#$PWD\/*\.tool-versions#\.#" \
