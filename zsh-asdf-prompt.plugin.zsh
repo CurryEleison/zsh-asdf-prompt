@@ -2,7 +2,7 @@
 function asdf_prompt_info() {
   # If asdf isn't present nothing to do
   (( ${+commands[asdf]} )) || return 0
-  local currenttools=$(asdf current)
+  local currenttools=$(asdf current 2> /dev/null)
   local toolvers_fname=${ASDF_DEFAULT_TOOL_VERSIONS_FILENAME-.tool-versions}
   # Decide how we filter what is shown
   if [[ $ZSH_THEME_ASDF_PROMPT_FILTER != "ALL" ]]; then
