@@ -15,7 +15,7 @@ function asdf_prompt_info() {
 
   # Decide if anything is left to process and return if not.
   [[ -z "${currenttools// }" ]] && return
-
+ 
   local toolslist=$(echo $currenttools | awk '{ print $1 }')
   local versionslist
   # Decide if we do semi-major version (default) or full version info
@@ -23,12 +23,12 @@ function asdf_prompt_info() {
     versionslist=$(echo $currenttools | awk '{ print $2 }' - )
   elif [[ $ZSH_THEME_ASDF_PROMPT_VERSION_DETAIL == "MAJOR" ]]; then
     versionslist=$(echo $currenttools | awk '{ print $2 }' - \
-      | sed -E 's/([^\.]*)(\.[^\.]*)(\..*)/\1/g' - \
-      | sed 's/system/s/g' -)
+      | sed -E 's/([^\.]*)(\.[^\.]*)(\..*)/\1/g'  \
+      | sed 's/system/s/g' )
   else
     versionslist=$(echo $currenttools | awk '{ print $2 }' - \
-      | sed -E 's/([^\.]*)(\.[^\.]*)(\..*)/\1\2/g' - \
-      | sed 's/system/sys/g' -)
+      | sed -E 's/([^\.]*)(\.[^\.]*)(\..*)/\1\2/g'  \
+      | sed 's/system/sys/g' )
   fi
   # Decide if we want to print out origins or not (default)
   local originslist
@@ -48,8 +48,7 @@ function asdf_prompt_info() {
     <(echo $originslist))
   local asdfsummary=$(echo $reassembled \
     | awk '{ print $1 ": " $2 $3 }' - \
-    | head -c -1 - \
-    | sed -z 's/\n/ /g' -)
+    | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/, /g'   )
 
   echo "${ZSH_THEME_ASDF_PROMPT_PREFIX-\{}"\
 "$asdfsummary${ZSH_THEME_ASDF_PROMPT_POSTFIX-\}}"
