@@ -4,7 +4,15 @@ A `zsh` prompt for `asdf` users that displays information about your current too
 
 ## Examples
 
-TODO
+The plugin will by default stay quiet when asdf tool versions are at your global settings.
+
+If you are in a folder affected by a `.tool-versions` file or have set a `$ASDF_*_VERSION` 
+it will list the changed versions. Here, I have tweaked versions of python and nodejs:  
+[![Screenshot #1.1](images/nodejs-python-default.png)](images/nodejs-python-default.png)
+
+You can embellish with details on versions and version resolution with the `$ZSH_THEME_ASDF_PROMPT_*` environment variables:  
+[![Screenshot #1.2](images/nodejs-python-detailed.png)](images/nodejs-python-detailed.png)  
+See section on environment variables further down to learn about the options.
 
 ## Requirements
 
