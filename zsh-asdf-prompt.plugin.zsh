@@ -48,7 +48,7 @@ function asdf_prompt_info() {
     <(echo $originslist))
   local asdfsummary=$(echo $reassembled \
     | awk '{ print $1 ": " $2 $3 }' - \
-    | tr '\n' ',' | sed 's/,$//g'  )
+    | tr '\n' '"' | sed 's/"$//g' | sed 's/"/, /g'  )
 
   echo "${ZSH_THEME_ASDF_PROMPT_PREFIX-\{}"\
 "$asdfsummary${ZSH_THEME_ASDF_PROMPT_POSTFIX-\}}"
