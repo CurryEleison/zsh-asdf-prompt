@@ -46,9 +46,11 @@ function asdf_prompt_info() {
   # Paste columns together and scrunch up in a single line  
   local reassembled=$(paste  <(echo $toolslist) <(echo $versionslist) \
     <(echo $originslist))
-  local asdfsummary=$(echo $reassembled \
-    | awk '{ print $1 ": " $2 $3 }' - \
-    | tr '\n' '"' | sed 's/"$//g' | sed 's/"/, /g'  )
+  local multilinesummary=$(echo $reassembled \
+    | awk '{ print $1 ": " $2 $3 }' - )
+  local asdfsummary=$( [[ $( echo $multilinesummary | wc -l ) -le 1 ]] \
+    && echo $multilinesummary \
+    || (echo $multilinesummary | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/, /g') )
 
   echo "${ZSH_THEME_ASDF_PROMPT_PREFIX-\{}"\
 "$asdfsummary${ZSH_THEME_ASDF_PROMPT_POSTFIX-\}}"
