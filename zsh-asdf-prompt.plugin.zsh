@@ -43,17 +43,19 @@ function asdf_prompt_info() {
   else
     originslist=$(echo $currenttools | awk '{ print ""}' -)
   fi
-  # Paste columns together and scrunch up in a single line  
+  # Paste columns together
   local reassembled=$(paste  <(echo $toolslist) <(echo $versionslist) \
     <(echo $originslist))
+  # Structure info in nice, separate lines
   local multilinesummary=$(echo $reassembled \
     | awk '{ print $1 ": " $2 $3 }' - )
+  # If more than one line, scrunch them up
   local asdfsummary=$( [[ $( echo $multilinesummary | wc -l ) -le 1 ]] \
     && echo $multilinesummary \
     || (echo $multilinesummary | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/, /g') )
 
   echo "${ZSH_THEME_ASDF_PROMPT_PREFIX-\{}"\
-"$asdfsummary${ZSH_THEME_ASDF_PROMPT_POSTFIX-\}}"
+    "$asdfsummary${ZSH_THEME_ASDF_PROMPT_POSTFIX-\}}"
 }
 
 # Default values for the appearance of the prompt.
