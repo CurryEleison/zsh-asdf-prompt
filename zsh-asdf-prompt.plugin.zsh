@@ -56,7 +56,7 @@ function asdf_prompt_info() {
 
   # Oddly formatted to avoid spurious spaces
   echo "${ZSH_THEME_ASDF_PROMPT_PREFIX-\{}"\
-${asdfsummary}${ZSH_THEME_ASDF_PROMPT_POSTFIX-\}}"
+"${asdfsummary}${ZSH_THEME_ASDF_PROMPT_POSTFIX-\}}"
 }
 
 # Default values for the appearance of the prompt.
