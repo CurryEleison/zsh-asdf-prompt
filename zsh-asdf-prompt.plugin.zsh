@@ -52,10 +52,11 @@ function asdf_prompt_info() {
   # If more than one line, scrunch them up
   local asdfsummary=$( [[ $( echo $multilinesummary | wc -l ) -le 1 ]] \
     && echo $multilinesummary \
-    || (echo $multilinesummary | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/, /g') )
+    || (echo $multilinesummary | sed -e ':a' -e 'N' -e '$!ba' -e 's/\n/, /g'))
 
+  # Oddly formatted to avoid spurious spaces
   echo "${ZSH_THEME_ASDF_PROMPT_PREFIX-\{}"\
-    "$asdfsummary${ZSH_THEME_ASDF_PROMPT_POSTFIX-\}}"
+"$asdfsummary${ZSH_THEME_ASDF_PROMPT_POSTFIX-\}}"
 }
 
 # Default values for the appearance of the prompt.
